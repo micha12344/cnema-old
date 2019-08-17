@@ -1,0 +1,268 @@
+<% include partiels/header.ejs%>
+
+
+
+<div class='loader' style='width:50px; height:50px; position:absolute; background-color:blue;'></div>
+
+<div class="cont">
+    <div class="check-list"></div>
+</div>
+
+
+
+<section class="sec">
+
+<div class="sca">
+<label id='1' class="dayy 1" tabindex="1"></label>
+<label id='2' class="dayy 2" tabindex="2"></label>
+<label id='3' class="dayy 3" tabindex="3"></label>
+<label id='4' class="dayy 4" tabindex="4"></label>
+<label id='5' class="dayy 5" tabindex="5"></label>
+<label id='6' class="dayy 6" tabindex="6"></label>
+<label id='7' class="dayy 7" tabindex="7"></label>
+
+<div class="info">
+<div class="in i1"></div>
+<div class="in i2"></div>
+<div class="in i3"></div>
+<div class="in i4"></div>
+<div class="in i5"></div>
+<div class="in i6"></div>
+<div class="in i7"></div>
+
+
+
+</div>
+
+</div>
+
+
+</section>
+<script>
+
+
+
+
+
+
+$( document ).ready(function(){
+
+
+
+$(".loader").fadeOut("slow");
+
+let d=new Date().getDate()-1;
+let k;
+    for(let i=1;i<=7;i++){
+        k=new Date().setDate(d+i)
+        $('.'+i).text(new Date(k).toDateString());
+    }
+
+
+    $('.dayy').on('focus', function(){
+         
+         $('.dayy').css({borderBottom:'solid 2px blue'});
+         $(this).css({borderBottom:'none'});
+         $('.info').css({backgroundColor:$(this).css('backgroundColor')});
+         $('.in').css({display:'none'});
+         $('.i'+$(this).attr('id')).css({display:'flex'});
+    });
+    
+
+
+
+
+
+// console.log(Amovies);
+let x,lbl,lblId,c_data;
+$.ajax({type:'get',
+        url:'/maker',
+        async:true,
+        success:  function(data){
+            c_data=JSON.parse(data);
+
+            for(let js_i=0;js_i<7;js_i++){                //each day
+                for(let i=0;i<c_data[js_i].length;i++){   //day movies list
+                    
+
+                    x=c_data[js_i][i].date.split(' ');    //metching by the date
+                    lbl=$('label:contains('+x[0]+'):contains('+x[1]+'):contains('+x[2]+')');
+                    
+                    lblId=lbl.attr('id');
+
+                    $('.i'+lblId).append($('<div></div>').addClass('cardi card'+js_i+''+i));
+
+                    $('.card'+js_i+''+i).append($('<img  />').addClass(c_data[js_i][i].movie+' imgH'));
+
+                    $('.card'+js_i+''+i).append($('<div></div>').addClass('hour'+js_i+''+i+' data'));
+
+                    $('.hour'+js_i+''+i).append($('<label></label>').text('movie: '+c_data[js_i][i].movie));
+                    $('.hour'+js_i+''+i).append($('<br><label></label>').text('time: '+c_data[js_i][i].hour));
+                    $('.hour'+js_i+''+i).append($('<br><label></label>').text('stage: '+c_data[js_i][i].stage));
+                    $('.hour'+js_i+''+i).append($('<br><label></label>').text('date: '+c_data[js_i][i].date));
+                    
+
+
+
+                }
+
+     }
+}});
+
+
+let arrl=[];//list of all first img(if movie have)
+let Apic=[];//l images for slider
+
+$.ajax({type:'get',
+        url:'/movies/list' ,
+        async:true,
+        success:function(data){
+
+                $.each(data, function(i){
+                    arrl=data[i].imgs.split(',');
+                    // if(!data[i].Limgs=="")
+                    //     {
+                    //         Apic.push(data[i].Limgs.split(','));
+                    //     }
+                    $('.'+data[i].movie).attr('src', arrl[0]);
+                    if(i==data.length-1)
+                    {
+                        Apic=['trees.jpg','whale.png','woodland.jpg'];
+                      img_lo();
+
+                    }
+                });
+
+
+    }
+
+});
+
+
+
+$('.1').focus();
+
+
+
+
+
+
+
+function img_lo(){
+        const cont=document.querySelector('.cont');
+        console.log(Apic);
+        for(let i=0;i<Apic.length;i++)
+        {
+            cont.innerHTML=cont.innerHTML+'<div class=p'+i+'></div>';
+            let cur_p=document.querySelector('.p'+i);
+            cur_p.className+=' p';
+
+            cur_p.style.cssText="background-image:url('"+Apic[i][0]+"'); background-repeat: no-repeat; background-size: 100% 100%;";
+            
+            let ch=document.createElement('div');
+            ch.className='check-me ch'+i;
+            let ched=document.createElement('div');
+            ched.className='checked ched'+i;
+            if(i==0)
+            {
+                ched.className='picked checked ched'+i;
+
+            }
+            ch.appendChild(ched);
+            document.querySelector('.check-list').appendChild(ch);
+                        console.log(document.querySelector('.ched0'));
+
+        }
+        // document.querySelector('.ched0').style.opacity=1;
+        document.querySelector('.check-list').addEventListener("click",slid_anim);
+}
+
+        let isRuning=false;
+        let i_class;
+        let corrent_i=0;
+        let dire;
+
+
+        let RequestAnimationFrame=window.requestAnimationFrame;
+        let CancelAnimationFrame=cancelAnimationFrame;
+        let pos;
+        let myReq;
+        let add;
+        let neg;
+         function slid_anim()
+        {
+            if(!isRuning)
+            {
+            console.log(event.target.className);
+            if(event.target!=document.querySelector('.check-list'))//clicked otside
+            {
+                let t_class=event.target.className;
+                i_class=+t_class.slice(-1);
+
+                if(i_class>corrent_i)
+                {
+                    dire=true;
+                }       
+                else
+                {
+                    dire=false;
+                }  
+                if(i_class!=corrent_i)
+                {           
+                isRuning=true;
+                switch (dire)
+                {
+                    case true:
+                        pos=100;
+                        add=-2;
+                        neg=0;
+                    break
+                    case false:
+                        pos=0;
+                        add=2;
+                        neg=-1;
+                    break
+                }
+                myReq=RequestAnimationFrame(myMove);
+                }
+            }
+        }
+    }
+
+
+            function myMove() 
+            {
+                pos+=add;
+                document.querySelector(".p"+(corrent_i+neg)).style.width = pos + "%";
+                myReq=RequestAnimationFrame(myMove);
+
+                if(pos<0||pos>100)
+                {
+                    // document.querySelector(".ched"+corrent_i).style.opacity=0;
+                    document.querySelector(".ched"+corrent_i).classList.remove('picked');
+                    console.log(document.querySelector(".ched"+corrent_i));
+                    corrent_i-=(add/2);
+                    // document.querySelector(".ched"+corrent_i).style.opacity=1;
+                    document.querySelector(".ched"+corrent_i).className+=' picked';
+
+                    pos=Math.abs(pos-100);
+                    if(corrent_i==i_class)
+                    {
+                        isRuning=false; 
+                    }
+                
+                    if(isRuning==false) 
+                    {
+                        CancelAnimationFrame(myReq); 
+                    }
+                }   
+            }
+
+
+
+});
+
+</script>
+
+
+<% include partiels/footer.ejs%>

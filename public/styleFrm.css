@@ -1,0 +1,18 @@
+
+.lbl {
+    color:#96c4d6;
+}
+.txt {
+    min-width:200px;
+}
+.form {
+    position :relative;
+    display:block;
+
+}
+
+.frm{
+    position:absolute;
+    top:20vh;
+    left: 10%;
+}

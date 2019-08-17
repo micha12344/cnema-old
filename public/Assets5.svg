@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="1735px" height="472px" viewBox="0 0 1735 472" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <path d="M0 159L0 0L328 0L328 159" transform="translate(4 73)" id="path_1" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M0 0L1 182L334 182L328 0" transform="translate(4 230)" id="path_2" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M0 167L0 0L362 0L362 167" transform="translate(259 42.5)" id="path_3" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M0 0L0 196L362 196L362 0" transform="translate(259 209)" id="path_4" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M334 168L334 0L0 0L0 168" transform="translate(1397 73)" id="path_5" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M334 0L334 175L0 175L0 0" transform="translate(1397 238)" id="path_6" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M0 0L0 196L362 196L362 0" transform="translate(1110.5 209.5)" id="path_7" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M0 167L0 0L362 0L362 167" transform="translate(1110.5 43)" id="path_8" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M0 0L301 0L301 464L1 464L1 464" transform="translate(848.5 4)" id="path_9" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M274 0L0 0L0 464L274 464" transform="translate(581 4)" id="path_10" fill="#000000" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
+
+
+.path_div{
+    position: absolute;
+    width:90.5vw;
+    left:50%;
+    height:60%;
+    top:22vh;
+    transform: translateX(-50%);
+}
+.path{
+    stroke-dasharray: 1350;
+    fill:black;
+    stroke-dashoffset: 1350;
+        animation: dash 5s ease-in-out forwards;
+  }
+
+
+  
+  @keyframes dash {
+
+    to {
+        stroke-dashoffset:  0;
+    }
+  }

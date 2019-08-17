@@ -1,0 +1,207 @@
+<% include partiels/header.ejs%>
+
+
+
+<br>
+<label class="title">Add new movie</label>
+<br>
+
+<div class="frm">
+<label class="form lbl">Name</label>
+<br>			   
+				   
+<input class="form txt txtmovie" type="text" placeholder="movie name" name="movie">
+<br>			   
+				   
+<label class="form lbl">languages</label>
+<br>			   
+				   
+<input class="form txt lang" type="text" placeholder="list box***" name="lang">
+<br>			   
+				   
+<label class="form lbl">Date </label>
+<br>			   
+				   
+<input class="form txt date" type="date" placeholder="" name="expier date">
+<br> 
+
+<label class="form lbl">status </label>
+<br>			   
+				   
+<input class="form txt status" type="text" placeholder="status active<y/n>***" name="status">
+
+<button  class="button">save</button>
+</div>
+
+
+
+<img src="pixabay.svg" class="pixa">
+<section class="sec_img">
+<label class="btn_s" style="color:white">search img</label>
+<label class="imgs">add images using pixabey api</label><input class="txt_imgs txt" type="text" placeholder="image">
+<br>
+</section>
+
+
+<section class="sec_vid">
+<label class="btn_sv" style="color:white">search vid</label>
+<label class="vids" >add videos using pixabey api</label><input class="txt_vids txt" type="text" placeholder="video">
+
+</section>
+
+<script>
+let Aimg=[];
+let ALimg=[];
+function imgbtn(){
+$.ajax({type:'get',
+        url:'/search/i?img='+$('.txt_imgs').val() ,
+        async:false,
+        timeout:3000,
+        success:function(api_data){
+            console.log(api_data);
+        $('.sec_img').empty();
+        $('.sec_img').append($('<label class="btn_s" style="color:white">search img</label>'+
+                               '<label class="imgs">add images using pixabey api</label>'+
+                               '<input class="txt_imgs txt" type="text" placeholder="image">'+
+                               '<br>'));
+                               $('.btn_s').on('click',imgbtn);
+        for(let i=0;i<20;i++){
+            $('.sec_img').append($('<div></div>').addClass('div_i div_i'+i));
+            $('.div_i'+i).append($('<img />').addClass('dimg img'+i));
+            $('.img'+i).attr('src',api_data.hits[i].previewURL);
+            $('.img'+i).attr('srcset',api_data.hits[i].largeImageURL);
+            $('.div_i'+i).append($('<br><label></label>').addClass('lbl_sec user'+i));
+            $('.user'+i).text('pixabey user: '+api_data.hits[i].user);
+
+        }
+
+        //add or remove click event to img
+
+        $('.div_i').on('click',function(){
+            let img_chi=$(this).children();
+            // img_chi=$(img_chi).children();
+            // console.log(ALimg,Aimg);
+
+             switch ($(this).css('box-shadow'))
+             {
+                case 'rgb(255, 215, 0) 0px 0px 7px 0px'://signe //gold
+
+                $(this).css({boxShadow:"rgb(47, 247, 29) 0px 0px 10px 0px"});//add img to array //green
+                Aimg.push($(img_chi).attr('src'));
+                ALimg.push($(img_chi).attr('srcset'));
+                // console.log(event,ALimg);
+
+                break;
+
+                case "rgb(47, 247, 29) 0px 0px 10px 0px"://unsine//green
+                    $(this).hover(
+                         ()=>{$(this).css({boxShadow:'0px 0px 7px rgb(255, 215, 0)' });},//gold
+                         ()=>{$(this).css({boxShadow:'0px 0px 1vh rgb(192, 192, 192)' });}//silver
+                        );
+                 $(this).css({boxShadow:'0px 0px 1vh rgb(192, 192, 192)'});//silver
+                let chI=Aimg.indexOf($(img_chi).attr('src'));//remove img from array
+                Aimg.splice(chI,1);
+                let chIL=ALimg.indexOf($(img_chi).attr('srcset'));
+                ALimg.splice(chIL,1);
+                break;
+             }
+             console.log(ALimg);
+
+        });
+
+
+
+        }
+        });
+
+}
+$('.btn_s').on('click',imgbtn);
+
+
+
+
+
+let Avids=[];
+function vidbtn(){
+$.ajax({type:'get',
+        url:'/search/v?vid='+$('.txt_vids').val() ,
+        async:false,
+        timeout:3000,
+        success:function(api_data){
+            $('.sec_vid').empty();
+            $('.sec_vid').append($('<label class="btn_sv" style="color:white">search vid</label>'+
+                                   '<label class="vids" >add videos using pixabey api</label>'+
+                                   '<input class="txt_vids txt" type="text" placeholder="video">'));
+
+        for(let i=0;i<20;i++){
+            $('.sec_vid').append($('<div></div>').addClass('div_vi div_vi'+i));
+            $('.div_vi'+i).append($('<video controls></video>').addClass('dvid vid'+i));
+            $('.vid'+i).append($('<source />').addClass('source'+i));
+            $('.source'+i).attr('src',api_data.hits[i].videos.small.url);
+            $('.div_vi'+i).append($('<br><label></label>').addClass('lbl_sec user'+i));
+            $('.user'+i).text('pixabey user: '+api_data.hits[i].user);
+            
+
+        }
+
+        //add or remove click event to vid
+            $('.div_vi').on('click',function(event){
+                    let vid_chi=$(this).children()[0];
+                    vid_chi=$(vid_chi).children();
+
+                    switch ($(this).css('box-shadow'))
+                    {
+                        case 'rgb(255, 215, 0) 0px 0px 7.224px 0px'://sine
+                    
+                        $(this).css({boxShadow:"0px 0px 1vh #2ff71d"});
+                        Avids.push($(vid_chi).attr('src'));
+
+                        break;
+                        case 'rgb(47, 247, 29) 0px 0px 7.224px 0px'://unsine
+                        $(this).hover(
+                             ()=>{$(this).css({boxShadow:'0px 0px 1vh rgb(255, 215, 0)' });},
+                             ()=>{$(this).css({boxShadow:'0px 0px 1vh rgb(192, 192, 192)' });}
+                            );
+
+                        $(this).css({boxShadow:'0px 0px 1vh rgb(192, 192, 192)'});
+                        let chI=Avids.indexOf($(vid_chi).attr('src'));
+                        Avids.splice(chI,1);
+                        break;
+
+                    }
+                    console.log(Avids);
+
+            });
+
+
+        }
+        });
+
+}
+$('.btn_sv').on('click',vidbtn);
+
+
+
+$('.button').on('click',function(){
+
+    $.ajax({type:'post',
+            url:'/newMovie',  
+            async:false,
+            // dataType:'json',
+            data:{'movie': $('.txtmovie').val(),'lang': $('.lang').val(),'date': $('.date').val(),'imgs': Aimg.toString(),'Limgs': ALimg.toString(), 'vids': Avids.toString()},
+
+            // contentType:'application/json'
+
+            // success:function(data){
+            //     c_data=JSON.parse(data);}
+        });
+});
+</script>
+    
+
+
+
+   
+<% include partiels/footer.ejs%>
+
+    

@@ -1,0 +1,331 @@
+<% include partiels/header.ejs%>
+
+
+
+<br>
+<label class="title lbl">Add new movie to stage</label>
+<br>
+<div class="frm" >
+
+<label class="form lbl">Name</label>
+<br>			   		   
+<select class="form txt moviex" id="movie" >
+    <option value="" selected disabled hidden>Choose movie</option>
+</select>
+<br>			   
+				   
+<label class="form lbl">stage</label>
+<br>			   				   
+<select class="form txt stage"  id="stage">
+    <option value="" selected disabled hidden>Choose stage</option>
+</select>
+
+</div>
+<br>			   
+				   
+
+
+
+
+<script>
+//movies list
+$('.moviex').on('mouseenter',function()
+{
+    const xmlRequest=new XMLHttpRequest();
+    xmlRequest.open('get','/stageMovies/search?list=movie',false);//<----
+
+    xmlRequest.onload=()=>
+    {
+    let JRq=JSON.parse(xmlRequest.response);
+
+    let selem=$('.moviex option:selected');
+    if (selem.val()=="")
+    {
+            $('.moviex').empty();
+            $('.moviex').append($('<option value="" selected disabled hidden>Choose movie</option>'));
+    }
+    else{
+         $('.moviex').empty();
+    }
+
+
+      for( i in JRq)
+      {
+        $('.moviex').append($('<option value=" '+JRq[i].movie+'">'+JRq[i].movie+'</option>'));
+      }
+   $('.moviex').val(selem.val());
+  }
+
+    xmlRequest.send();
+});
+
+//stages list
+$('.stage').on('mouseenter',function()
+{
+    const xmlRequest=new XMLHttpRequest();
+    xmlRequest.open('get','/stageMovies/search?list=stage',false);
+
+    xmlRequest.onload=()=>
+    {
+    let JRq=JSON.parse(xmlRequest.response);
+
+
+    let seles=$('.stage option:selected');
+    if (seles.val()=="")
+    {
+            $('.stage').empty();
+            $('.stage').append($('<option value="" selected disabled hidden>Choose stage</option>'));
+    }
+    else{
+         $('.stage').empty();
+    }
+
+      for( i in JRq)
+      {
+        $('.stage').append($('<option value=" '+JRq[i].stage+'">'+JRq[i].stage+'</option>'));
+      }
+      $('.stage').val(seles.val());
+
+  }
+
+    xmlRequest.send();
+});
+
+
+</script>
+
+
+
+
+
+<section>
+<div class="title lbl">choose movie days from calendar</div>
+<br>
+<div class="calendar">
+
+<div class="l_year">
+    <label class="prev_y"><</label>
+    <label class="p_year">year</label>
+    <label class="next_y">></label>
+
+</div>
+<div class="l_month">
+    <label class="prev_m"><</label>
+    <label class="l_month">month</label>
+    <label class="next_m">></label>
+
+</div>
+
+<div class="days">
+    <label class="cell day">sun</label>
+    <label class="cell day">mon</label>
+    <label class="cell day">tus</label>
+    <label class="cell day">wed</label>
+    <label class="cell day">thu</label>
+    <label class="cell day">fri</label>
+    <label class="cell day">str</label>
+</div>
+
+<div class="month rt">
+
+</div>
+
+</div>
+</section>
+<script>
+
+let movieDate=new Date();
+    //get date
+       //draw the clendar days
+  function Cal(movieDate)
+  {
+      let c_movieDate=new Date(movieDate);
+
+    //    console.log(movieDate);
+      
+      c_movieDate.setDate(1);
+
+       let first=c_movieDate.getDay();
+
+       c_movieDate.setDate(c_movieDate.getDate()-first);
+      //  console.log(c_movieDate);
+
+       $('.p_year').text('year:'+movieDate.getFullYear()+'/'+(movieDate.getMonth()+1));
+       $('.cell').css({background:' #9adcc8'});
+       $('.day').css({background:' #eee'});
+       for(let i=0;i<42;i++)
+       {
+
+
+
+
+           if($('.month > label').length==42){
+                $('.'+i).text(c_movieDate.getDate());
+           }else
+           {
+                $('.month ').append($('<label></label>').addClass('cell rt '+i));
+                $('.'+i).text(c_movieDate.getDate());
+                $('.'+i).attr('id', i);;
+           }
+
+           if(c_movieDate.getDate()==movieDate.getDate())
+            {    
+                 $('.'+i).css({background:'yellow'});
+            }
+            // console.log(i,c_movieDate,movieDate);
+
+            c_movieDate.setDate(c_movieDate.getDate()+1);
+
+       }
+        
+       
+       }
+       Cal(movieDate);
+
+//arrows choosing date
+        $('.prev_y').on('click',function(){
+            movieDate.setFullYear(movieDate.getFullYear()-1);
+            Cal(movieDate);
+        }); 
+        $('.next_y').on('click',function(){
+            movieDate.setFullYear(movieDate.getFullYear()+1);
+            Cal(movieDate);
+        }); 
+        
+        $('.prev_m').on('click',function(){
+            movieDate.setMonth(movieDate.getMonth()-1);
+            Cal(movieDate);
+        });
+        $('.next_m').on('click',function(){
+            movieDate.setMonth(movieDate.getMonth()+1);
+            Cal(movieDate);
+        });
+
+
+            //choosing day
+        $('.month').on('click',function(e)
+        {
+             $('.timeList').remove();
+
+            let d_chosed=new Date(movieDate);
+            let v=e.target.id;
+
+            d_chosed.setDate( v);
+            // console.log(d_chosed.toDateString());
+
+
+            $('body').append($('<div></div>').addClass('timeList rt'));
+            $('.timeList').css({width:'40vw',minWidth:'50px',height:'40vh',background:'white',textAlign: 'center',position:'absolute',left:'50%',top:'50%',transform:'translateX(-50%) translateY(-50%)',border:'solid 1px blue'});
+           
+            $('.timeList').append($('<label>'+d_chosed.toDateString()+'</label>').addClass('dateT rt'));
+            $('.dateT').css({position:'relative',width:'100%'});
+
+            
+            
+
+            $('.timeList').append($('<label>x</label>').addClass('exitList'));
+            $('.exitList').css({position:'absolute',right:'5px',margin:'5px'});
+
+            $('.exitList').on('click',function()
+            {
+                 $('.timeList').remove();
+            });
+
+            $('.timeList').append($('<br><input type="time" class="t rt">'));
+            $('.t').css({position:'relative'});
+            
+            
+            $('.timeList').append($('<label>-></label>').addClass('add rt'));
+            $('.add').css({position:'relative',bottom:'5px',margin:'5px'});
+            
+            
+            $('.timeList').append($('<div></div>').addClass('listx rt'));
+            $('.listx').css({overflowY:'auto',height:'25vh'});
+            timeLi(d_chosed.toDateString(),$('#movie').val(),$('#stage').val());
+           
+            $('.add').on('click',function()
+            {       
+                if($('.t').val().length==5)
+                {
+                    //chek if time pased asom its today date
+                    // console.log($('#movie').val());
+                    timeAdd(d_chosed.toDateString(),$('.t').val(),$('#movie').val(),$('#stage').val());
+
+
+
+                    // let toD=new Date(d_chosed);
+                    // let uu=$('.t').val().split(":");
+                    // toD.setHours(+uu[0],+uu[1],50,0);
+                    //  console.log(uu,toD);
+
+                   
+                   
+                    //toT.toJSON();
+                    // if(Date($('.t').val()).getTime()<n.getTime())
+                //timeRq($('.t').val());
+
+
+
+
+                }
+            // $('.timeList').append($('<div></div>').addClass('listx rt'));
+            // $('.listx').css({overflowY:'scroll',height:'25vh'});
+            timeLi(d_chosed.toDateString(),$('#movie').val(),$('#stage').val());
+            });
+            
+
+        });
+
+
+
+function timeAdd(date,time,movie,stage)
+{
+
+    const XHrequest=new XMLHttpRequest();
+
+    XHrequest.open('post','/calendar/add?date='+date+'&time='+time+'&movie='+movie+'&stage='+stage,false);
+
+    XHrequest.onload= () =>{
+        // console.log(XHrequest.response);
+        
+    }
+    XHrequest.send();
+
+}
+
+//refresh the day movie time list
+function timeLi(date,movie,stage)
+{
+  const xmlRq=new XMLHttpRequest();
+  xmlRq.open('get','/calendar/time?date='+date+'&movie='+movie+'&stage='+stage,true);
+  xmlRq.onload = ()=>{
+    let JRq=JSON.parse(xmlRq.response);
+      $('.listx').empty();
+
+      for( i in JRq)
+      {
+        $('.listx').append($('<label classs=\'rt\'>'+JRq[i].hour+'</label><br>'));
+      }
+ }
+  xmlRq.send();
+}
+
+//exit hour list
+$('*').on('click',function(e){
+  
+    if(!$(e.target).hasClass('rt'))
+         $('.timeList').remove();
+});
+
+
+
+
+let sele_movie;
+</script>
+
+
+
+
+
+</body>
+</html>

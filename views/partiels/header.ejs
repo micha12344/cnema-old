@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+
+    <link class="calenderStyle" href="calenderStyle.css" rel="stylesheet" type="text/css">
+    <link class="styleHo" href="styleHo.css" rel="stylesheet" type="text/css">
+    <link class="styleNM" href="styleNM.css" rel="stylesheet" type="text/css">
+    <link class="styleM" href="styleM.css" rel="stylesheet" type="text/css">
+    <link class="styleHoWr" href="styleHoWr.css" rel="stylesheet" type="text/css">
+    <link class="styleLI" href="styleLI.css" rel="stylesheet" type="text/css">
+    <link class="styleFrm" href="styleFrm.css" rel="stylesheet" type="text/css">
+    <link class="style" href="style.css" rel="stylesheet" type="text/css">
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet"><!--font-->
+    <link href="https://fonts.googleapis.com/css?family=Baloo&display=swap" rel="stylesheet"><!--c font-->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    
+    
+    
+    <script>let au="<%=isAuthenticated%>"</script>
+
+    <title>C-nema</title>
+
+</head>
+
+<body>
+
+<div class='logod'>
+    <label class="logo C">C</label>
+    <label class="logo nema">-</label>
+    <label class="logo nema">n</label>
+    <label class="logo nema">e</label>
+    <label class="logo nema">m</label>
+    <label class="logo nema">a</label>
+</div>
+
+<script>
+    $('.logo').on('click', (e)=>{
+        window.location.href ='/';
+    });
+
+ </script>
+
+
+
+     <% if(isAuthenticated==true){%>
+    
+        <%include headerML.ejs%>
+        
+    <%}else{%>
+
+
+        <%include headerU.ejs%>
+
+    <%}%>
+
+
+
+
+
+
+
+
+<script>
+//menu
+$('.m-fi').on('click',()=>{
+    if($('.m-in').css('display')=='none')
+    {
+        $('.m-in').css({display:'block'});
+
+    }else
+    {
+        $('.m-in').css({display:'none'});
+    }
+});
+
+console.log(au);
+if(au=='false')
+{
+
+}
+
+</script>

@@ -1,0 +1,63 @@
+
+<style>
+.menu-mn{
+        /* color:white;*/
+    font-family: 'Times New Roman', Times, serif;
+    right:4%;
+    top:5%;
+    position: fixed;
+    line-height:55px;
+    text-align: center;
+    border-radius: 50% 50%;
+    width:60px;
+    height: 60px;
+    box-shadow: 0px 0px 10px gold,inset 0px 0px 2px gold;
+    z-index:10;
+}
+.t{
+    color:antiquewhite;
+    font-size:20px;
+    font-family: 'Times New Roman', Times, serif;
+        transform:translateY(-10px);
+
+}
+.t:hover{
+    cursor: pointer;
+    text-shadow: 0px 0px 5px black,0px 0px 5px white,0px 0px 5px black,0px 0px 5px white,0px 0px 5px black,0px 0px 5px white;
+}
+.m-in{
+    display:none;
+}
+.user-list{
+    transform: translateX(-80%);
+
+}
+.manager-list{
+    position: relative;
+    transform: translateX(80%);
+    top:-342px;
+}
+
+
+
+
+    </style>
+
+    <div class="menu-mn">
+    <h1 class="t m-fi">menu</h1>
+        <div class="user-list">
+            <a href='/'><h1 class="t m-in menu-u">home</h1></a>
+            <a href='/movies'><h1 class="t m-in menu-u">movies</h1></a>
+            <a href='/about'><h1 class="t m-in menu-u">about</h1></a>
+        </div>
+        <a href='/signUp'><h1 class="t m-in">new</h1></a>
+        <a href='/logout'><h1 class="t m-in menu-lo">log out</h1></a>
+
+        <div class="manager-list">
+            <a href='/stageMovies'><h1 class="t m-in menu-m">timing</h1></a>
+            <a href='/newmovie'><h1 class="t m-in menu-m">movie</h1></a>
+            <a href='/stages'><h1 class="t m-in menu-m">stage</h1></a>
+        </div>
+
+    </div>
+

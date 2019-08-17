@@ -1,0 +1,48 @@
+<% include partiels/header.ejs%>
+
+
+
+<div class="log">
+<form  method="post" action="/signUp" >
+	<label class="log-t">sign up</label>	<br><br>
+
+	<input name="manager" class="txt_login txt_m " type="text" placeholder="manager:" maxlength="15"><br><br>
+	
+	<input name="password" class="txt_login txt_ms" type="password" placeholder="password:" maxlength="11"><br><br>
+
+	<input name="code" class="txt_login txt_code" type="password" placeholder="code:" maxlength="11"><br>
+
+
+	<button type="submit" class="btn-login">save</button>
+</form>
+</div>
+
+
+
+<script>
+
+// $('.btn-login').on('click',function(){
+// 	if($('.txt_m').val().length>=8 && $('.txt_ms').val().length>=8)
+// 	{
+//     $.ajax({type:'post',
+//             url:'/signUp/new',  
+//             async:false,
+//             dataType:'json',
+// 			setTimeOut:1000,
+//             data:{'manager': $('.txt_m').val(),'password': $('.txt_ms').val(),'code': $('.txt_code').val()},
+
+// 		// 	success:function(data){
+// 		// 		 c_data=JSON.parse(data);}
+//         });
+// 	}
+// 	else
+// 	{ 
+// 		console.log("8 letters needed");
+
+// 	}
+// });
+
+</script>
+
+
+<% include partiels/footer.ejs%>

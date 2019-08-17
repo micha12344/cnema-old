@@ -1,0 +1,19 @@
+<% include partiels/header.ejs%>
+
+<form method="post" action="/login-manager">
+
+
+<div class="log">
+	<label class="log-t">log in</label>	<br><br>
+
+	<input  class="txt_login txt_m " name="manager" value='default1' type="text" placeholder="manager:" maxlength="15"><br><br><br>
+	
+	<input  class="txt_login txt_ms" name="password" value='default1' type="password" placeholder="password:" maxlength="11"><br>
+
+	<button type="submit" class="btn-login">log in</button>
+</div>
+
+</form>
+
+
+<% include partiels/footer.ejs%>

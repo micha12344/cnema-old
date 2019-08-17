@@ -1,0 +1,35 @@
+<% include partiels/header.ejs%>
+
+<div class="row">
+    
+
+        </div>
+		
+</div>
+
+<script>
+
+$.get('/movies/list',function(data){
+    $.each(data,function(i){
+        let rl=data[i].imgs.split(',');
+            // console.log(rl);
+
+        $('.row').append($('<div class="card first"></div>').addClass('first'+i));
+        $('.first'+i).append($('<div></div>').addClass('card-head card-head'+i));
+        $('.card-head'+i).append($('<img class="imgm" />').addClass('img'+i));
+        $('.img'+i).attr('src',rl[0]);
+        $('.first'+i).append($('<h5 class="card-title"></h5>').addClass('h'+i));
+        $('.h'+i).text(data[i].movie);
+		$('.first'+i).append($('<br><p class= "card-text "></p>').addClass('p'+i));
+        $('.p'+i).text(data[i].lang);
+
+		$('.first'+i).append($('<br><a class="btn btn-primary">more</a>').addClass('a'+i));
+    });
+});
+
+//href= "/movies/<%
+//= moviesData[i].id %>"
+</script>
+
+</body>
+</html>

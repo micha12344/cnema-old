@@ -1,0 +1,124 @@
+body{
+    background-color:black;
+    align-content: center;
+    margin: 0px;
+	/* user-select: none; */
+
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+    text-decoration: none;
+
+    outline: none;
+    
+}
+
+.logod{
+    position: relative;
+    top:20px;
+}
+.logo {
+    font-size: 10%;
+    text-shadow: 0px 0px 5px white, 0px 0px 50px blue;
+    font-family: 'Courgette', cursive;
+    font-weight: 900;
+    position: relative;
+    display: block;
+    float: left;
+    user-select: none;
+    cursor: pointer;
+}
+
+.nema {
+    top: 35px;
+}
+
+.C {
+    font-family: 'Baloo', cursive;
+    font-size: 120px;
+    font-weight: 300;
+    text-shadow: 0px 0px 5px white, -7px 0px 50px blue;
+    position: relative;
+    display: block;
+    float: left;
+    padding-left: 2%;
+    top: -25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer{
+    background-color: antiquewhite;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;;
+    height: 80px;;
+    margin-top: -50px;
+    display:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        a:link {
+            text-decoration: none;
+          }
+          
+          a:visited {
+            text-decoration: none;
+          }
+          
+          a:hover {
+            text-decoration: none;
+          }
+          
+          a:active {
+            text-decoration: none;
+          }
+
+
+
+
+
+          .nutton {/*manager buttons*/
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            position: relative;
+            width: 100px;
+            height: 50px;
+            color: #73bedc;
+            border: solid 1px blue;
+            text-shadow: 0px 0px 55px #73bedc;
+            border-radius: 10px;
+            text-align: center;
+            /*padding-top: .3%;*/
+            left: 300px;
+            top: 100px;
+            background-color: midnightblue;
+            cursor: pointer;
+        }
+

@@ -1,0 +1,49 @@
+<style>
+.m-first{
+    position: fixed;
+    top:5%;
+    right: 3%;
+    z-index: 1;
+
+}
+.menu-u{
+    border-radius: 50% 50%;
+    color: antiquewhite;
+    display: block;
+
+    width:60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    text-shadow:    0px 0px 5px black,  0px 0px 5px white,  0px 0px 5px black,  0px 0px 5px white,  0px 0px 5px black,  0px 0px 5px white,  0px 0px 5px black,  0px 0px 5px white,  0px 0px 5px black,  0px 0px 5px white,  0px 0px 5px black,  0px 0px 5px white;
+
+    box-shadow:   inset 0px 0px 10px gold;
+    margin: 10px;
+    cursor: pointer;
+}
+.menu-u:hover{
+    box-shadow: inset 0px 0px 10px gold, 0px 0px 10px gold;
+
+}
+.m-in{
+    display: none;
+}
+
+
+
+</style>
+
+
+<label class="m-first">
+
+    <label class="menu-u m-fi"  tabindex="8">menu</label>
+    <label class='menu-auto'>
+        <a href='/'><label class="menu-u m-in">Home</label> </a>   
+        <a href='/movies'> <label class="menu-u m-in">Movies</label> </a> 
+        <a href='/About'><label class="menu-u m-in">About</label></a>
+    </label>
+
+    <a href='/login-manager'><label class="menu-u m-in l-in">Manager</label></a>
+
+</label>
+
